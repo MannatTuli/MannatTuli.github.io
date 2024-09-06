@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mannat Tuli</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1 class="logo"><a href="#">Mannat Tuli</a></h1>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#top-songs">Top Songs</a></li>
+                    <li><a href="#links">Social</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h2>Mannat Tuli</h2>
+                <p>this is an awesome website!!</p>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="section-content">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p>
+                            I'm Mannat Tuli, a passionate developer and motion designer from India,
+                            currently pursuing a Bachelor of Science in Computer Science at <a href="https://www.unsw.edu.au/" class="link">UNSW, Sydney</a>.
+                        </p>
+                        <p>
+                            With a deep love for problem-solving, I'm dedicated to crafting
+                            innovative solutions for everyday challenges, with a special focus on mobile
+                            and web development using TypeScript, JavaScript, and Python.
+                        </p>
+                        <p>
+                            I'm skilled in Svelte, Node.js, EJS, and Ruby on Rails, having developed web
+                            applications across these platforms. I also have a passion for AI which led
+                            me to achieve the Microsoft <a href="https://www.credly.com/badges/deb87ce2-f03b-4f23-b935-fc424abcccb6?source=linked_in_profile" class="link">AI-900</a> certification.
+                        </p>
+                    </div>
+                    <div class="about-interests">
+                        <h3>Interests</h3>
+                        <ul>
+                            <li>Chess</li>
+                            <li>Music</li>
+                            <li>Reading</li>
+                            <li>Rubik's Cube</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Projects</h2>
+                <div class="project-grid">
+                    <div class="project">
+                        <h3 class="project-title">themessages</h3>
+                        <p class="project-description">Newer version of themessages made on Node.js, with EJS and hosted on Render.</p>
+                    </div>
+                    <div class="project">
+                        <h3 class="project-title">themessages-lurker</h3>
+                        <p class="project-description">Webscraper to browse themessages on the terminal. Used lxml instead of bs4 and json.</p>
+                    </div>
+                    <div class="project">
+                        <h3 class="project-title">Filmania</h3>
+                        <p class="project-description">Social Network for sharing movie reviews. Check your friend's reviews and see what they're watching!</p>
+                    </div>
+                    <div class="project">
+                        <h3 class="project-title">LazyURL</h3>
+                        <p class="project-description">A URL shortener. Enter the URL to redirect to and the slug of your choice!</p>
+                    </div>
+                    <div class="project">
+                        <h3 class="project-title">C.A.R.E</h3>
+                        <p class="project-description">Webapp on Azure portals for patients, including a chatbot for queries and symptom assessment.</p>
+                    </div>
+                    <div class="project">
+                        <h3 class="project-title">StoryBomb</h3>
+                        <p class="project-description">Chess puzzle game made with HTML and JavaScript for practicing chess skills.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="top-songs" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Top Songs</h2>
+                <p class="center">My top songs for this week, fetched dynamically from my LastFM account!</p>
+                <div class="carousel">
+                    <div class="carousel-content"></div>
+                    <button class="carousel-button prev"><i class="fa fa-chevron-left"></i></button>
+                    <button class="carousel-button next"><i class="fa fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="links">
+        <div class="social-icons">
+            <a href="https://www.github.com/mannattuli" class="social-icon" target="_blank"><i class="fa fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mannattuli/" class="social-icon" target="_blank"><i class="fa fa-linkedin"></i></a>
+            <a href="https://www.twitter.com/mannattuli" class="social-icon" target="_blank"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.instagram.com/mxnnxtt" class="social-icon" target="_blank"><i class="fa fa-instagram"></i></a>
+            <a href="https://www.facebook.com/mannattulii" class="social-icon" target="_blank"><i class="fa fa-facebook"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var currentIndex = 0;
+            var songs = [];
+
+            $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getWeeklyTrackChart&user=mxnnxtz&api_key=4a9f5581a9cdf20a699f540ac52a95c9&limit=10&format=json", function(json) {
+                songs = json.weeklytrackchart.track;
+                updateCarousel(currentIndex);
+
+                $('.next').click(function() {
+                    currentIndex = (currentIndex + 1) % songs.length;
+                    updateCarousel(currentIndex);
+                });
+
+                $('.prev').click(function() {
+                    currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+                    updateCarousel(currentIndex);
+                });
+            });
+
+            function updateCarousel(index) {
+                var song = songs[index];
+                var html = "<p>" + song.name + " by " + song.artist['#text'] + "<br>Play count: " + song.playcount + "</p>";
+                $('.carousel-content').html(html);
+            }
+        });
+    </script>
+</body>
+</html>
